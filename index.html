@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AccountBazaar.com - আপনার প্রিমিয়াম একাউন্টের বিশ্বস্ত বাজার</title>
+    <style>
+        /* All previous CSS styles remain unchanged */
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap');
+        :root { --primary-color: #2a6df5; --secondary-color: #1a202c; --background-color: #f7fafc; --card-bg: #ffffff; --text-color: #4a5568; --heading-color: #1a202c; --border-color: #e2e8f0; --success-color: #48bb78; --danger-color: #f56565; }
+        body { font-family: 'Hind Siliguri', sans-serif; background-color: var(--background-color); color: var(--text-color); margin: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { background-color: var(--card-bg); border-bottom: 1px solid var(--border-color); padding: 15px 0; position: sticky; top: 0; z-index: 1000; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8em; font-weight: 700; color: var(--primary-color); text-decoration: none; }
+        .nav-links a { color: var(--text-color); text-decoration: none; margin: 0 15px; font-weight: 500; transition: color 0.3s; cursor: pointer; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary-color); }
+        .user-balance { font-weight: 600; background-color: #e2e8f0; padding: 8px 15px; border-radius: 20px; color: var(--secondary-color); }
+        .page { display: none; animation: fadeIn 0.5s; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .btn { display: inline-block; padding: 12px 25px; border: none; border-radius: 8px; font-size: 1em; font-weight: 600; cursor: pointer; text-decoration: none; transition: background-color 0.3s, transform 0.2s; }
+        .btn-primary { background-color: var(--primary-color); color: white; }
+        .btn-primary:hover { background-color: #1e5ad6; transform: translateY(-2px); }
+        .btn-secondary { background-color: var(--secondary-color); color: white; }
+        .btn-success { background-color: var(--success-color); color: white; }
+        .btn-copy { background-color: #f0f0f0; color: var(--text-color); }
+        .welcome-banner { background: linear-gradient(135deg, var(--primary-color), #5a8dff); color: white; text-align: center; padding: 80px 20px; border-radius: 12px; margin-bottom: 40px; }
+        .welcome-banner h1 { font-size: 3em; margin: 0 0 10px 0; }
+        .welcome-banner p { font-size: 1.2em; opacity: 0.9; margin-bottom: 30px; }
+        .section-title { text-align: center; font-size: 2.2em; color: var(--heading-color); margin-bottom: 40px; }
+        .benefits { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 40px; }
+        .benefit-card { background-color: var(--card-bg); padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; }
+        .benefit-card h3 { color: var(--heading-color); margin-top: 15px; }
+        .benefit-card .icon { font-size: 3em; color: var(--primary-color); }
+        .filters { background-color: var(--card-bg); padding: 20px; border-radius: 10px; margin-bottom: 30px; display: flex; flex-wrap: wrap; gap: 20px; align-items: center; }
+        .filter-group { display: flex; flex-direction: column; }
+        .filter-group label { font-weight: 500; margin-bottom: 5px; }
+        .filter-group select, .filter-group input { padding: 10px; border: 1px solid var(--border-color); border-radius: 5px; min-width: 180px; }
+        .account-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .account-card { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; }
+        .account-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+        .account-card-header { display: flex; align-items: center; margin-bottom: 15px; }
+        .account-card-header img { width: 40px; height: 40px; margin-right: 15px; }
+        .account-card-header h3 { margin: 0; font-size: 1.2em; color: var(--heading-color); }
+        .account-details-list { list-style: none; padding: 0; margin: 0 0 20px 0; flex-grow: 1; }
+        .account-details-list li { margin-bottom: 10px; display: flex; justify-content: space-between; }
+        .account-details-list li strong { color: var(--heading-color); }
+        .account-price { font-size: 1.5em; font-weight: 700; color: var(--primary-color); margin-bottom: 15px; text-align: center; }
+        .order-details, .dashboard-card { background-color: var(--card-bg); padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); max-width: 800px; margin: 40px auto; }
+        .order-details h2, .dashboard-card h2 { text-align: center; color: var(--heading-color); margin-top: 0; }
+        .order-info, .login-info { border: 1px dashed var(--border-color); padding: 20px; border-radius: 8px; margin-top: 20px; }
+        .info-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border-color); }
+        .info-item:last-child { border-bottom: none; }
+        .info-item-value { font-weight: 600; display: flex; align-items: center; gap: 10px; }
+        .action-buttons { display: flex; justify-content: center; gap: 15px; margin-top: 30px; }
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .form-card, .info-card { background: var(--card-bg); padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 8px; }
+        .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 5px; box-sizing: border-box; }
+        .payment-numbers { text-align: left; margin-bottom: 20px; border: 1px dashed var(--border-color); padding: 15px; border-radius: 8px; }
+        .payment-numbers p { margin: 8px 0; font-size: 1.1em; }
+        .table-container { margin-top: 20px; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border-color); }
+        th { background-color: #edf2f7; font-weight: 600; }
+        .status-Pending { color: #dd6b20; font-weight: bold; }
+        .status-Completed { color: var(--success-color); font-weight: bold; }
+        .status-Rejected { color: var(--danger-color); font-weight: bold; }
+        .live-chat-btn { position: fixed; bottom: 30px; right: 30px; background-color: var(--primary-color); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 24px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); cursor: pointer; z-index: 1001; text-decoration: none;}
+        #authContainer { display: flex; justify-content: center; align-items: center; min-height: 80vh; }
+        .auth-card { background-color: var(--card-bg); padding: 40px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        .auth-card h2 { text-align: center; margin-top: 0; margin-bottom: 25px; color: var(--heading-color); }
+        .auth-toggle-link { text-align: center; margin-top: 20px; }
+        .auth-toggle-link a { color: var(--primary-color); font-weight: 600; cursor: pointer; }
+        #loginForm, #registerForm, #resetPasswordForm { display: none; }
+        #loginForm.active, #registerForm.active, #resetPasswordForm.active { display: block; }
+        #mainApp { display: none; }
+        #logoutBtn { color: var(--danger-color); }
+        @media (max-width: 768px) { .navbar { flex-direction: column; gap: 10px; } .content-grid { grid-template-columns: 1fr; } .filters { flex-direction: column; align-items: stretch; } .welcome-banner h1 { font-size: 2.2em; } }
+    </style>
+</head>
+<body>
+    
+    <div id="authContainer">
+        <div class="auth-card">
+            <form id="loginForm" class="active">
+                <h2>লগইন করুন</h2>
+                <div class="form-group"><label for="loginEmail">ইমেইল</label><input type="email" id="loginEmail" required></div>
+                <div class="form-group"><label for="loginPassword">পাসওয়ার্ড</label><input type="password" id="loginPassword" required></div>
+                <button type="submit" class="btn btn-primary" style="width:100%;">লগইন</button>
+                <p class="auth-toggle-link"><a onclick="showAuthForm('resetPasswordForm')">পাসওয়ার্ড ভুলে গেছেন?</a></p>
+                <p class="auth-toggle-link">একাউন্ট নেই? <a onclick="showAuthForm('registerForm')">রেজিস্ট্রেশন করুন</a></p>
+            </form>
+            <form id="registerForm">
+                <h2>রেজিস্ট্রেশন করুন</h2>
+                 <div class="form-group"><label for="registerName">আপনার নাম</label><input type="text" id="registerName" required></div>
+                <div class="form-group"><label for="registerEmail">ইমেইল</label><input type="email" id="registerEmail" required></div>
+                <div class="form-group"><label for="registerPassword">পাসওয়ার্ড</label><input type="password" id="registerPassword" required></div>
+                <button type="submit" class="btn btn-primary" style="width:100%;">রেজিস্টার</button>
+                <p class="auth-toggle-link">ইতিমধ্যে একাউন্ট আছে? <a onclick="showAuthForm('loginForm')">লগইন করুন</a></p>
+            </form>
+            <form id="resetPasswordForm">
+                <h2>পাসওয়ার্ড রিসেট</h2>
+                <p style="text-align: center; font-size: 0.9em; margin-bottom: 20px;">আপনার ইমেইল এড্রেস দিন, আমরা আপনাকে পাসওয়ার্ড রিসেট করার জন্য একটি লিংক পাঠাবো।</p>
+                <div class="form-group"><label for="resetEmail">ইমেইল</label><input type="email" id="resetEmail" required></div>
+                <button type="submit" class="btn btn-primary" style="width:100%;">রিসেট লিংক পাঠান</button>
+                <p class="auth-toggle-link"><a onclick="showAuthForm('loginForm')">লগইনে ফিরে যান</a></p>
+            </form>
+        </div>
+    </div>
+
+    <div id="mainApp">
+        <header>
+            <div class="container navbar">
+                <a class="logo" onclick="showPage('home')">AccountBazaar.com</a>
+                <nav class="nav-links">
+                    <a class="nav-link active" onclick="showPage('home', this)">হোম</a>
+                    <a class="nav-link" onclick="showPage('market', this)">একাউন্ট মার্কেট</a>
+                    <a class="nav-link" onclick="showPage('deposit', this)">ডিপোজিট</a>
+                    <a class="nav-link" onclick="showPage('referral', this)">রেফারেল</a>
+                    <a class="nav-link" onclick="showPage('dashboard', this)">আমার একাউন্ট</a>
+                    <a id="logoutBtn" onclick="logoutUser()">লগআউট</a>
+                </nav>
+                <div class="user-balance" id="userBalanceDisplay">ব্যালেন্স: ৳0</div>
+            </div>
+        </header>
+        <main class="container">
+            <section id="home" class="page active">
+                <div class="welcome-banner"><h1 id="welcomeUser">AccountBazaar.com এ আপনাকে স্বাগতম</h1><p>আপনার প্রয়োজনীয় সকল প্রকার ভেরিফাইড ও পুরাতন প্রিমিয়াম একাউন্ট কিনুন সহজেই।</p><button class="btn btn-secondary" onclick="showPage('market')">একাউন্ট ব্রাউজ করুন</button></div>
+                <h2 class="section-title">ফিচার্ড একাউন্টস</h2><div id="featuredAccounts" class="account-list"></div>
+                <div class="benefits">
+                    <div class="benefit-card"><div class="icon">✔️</div><h3>বিশ্বস্ত ও নিরাপদ</h3><p>প্রতিটি একাউন্ট বিক্রির পূর্বে আমাদের টিম দ্বারা ভেরিফাই করা হয়।</p></div>
+                    <div class="benefit-card"><div class="icon">⚡</div><h3>তাত্ক্ষণিক ডেলিভারি</h3><p>পেমেন্ট করার সাথে সাথেই আপনি একাউন্টের সম্পূর্ণ তথ্য পেয়ে যাবেন।</p></div>
+                    <div class="benefit-card"><div class="icon">💬</div><h3>২৪/৭ সাপোর্ট</h3><p>যেকোনো সমস্যায় আমাদের সাপোর্ট টিম সবসময় আপনার পাশে আছে।</p></div>
+                </div>
+            </section>
+            <section id="market" class="page">
+                <h2 class="section-title">সকল একাউন্ট</h2>
+                <div class="filters">
+                    <div class="filter-group"><label for="filterType">একাউন্ট টাইপ</label><select id="filterType"><option value="all">সব</option><option value="Gmail">Gmail</option><option value="Facebook">Facebook</option><option value="Instagram">Instagram</option></select></div>
+                    <div class="filter-group"><label for="filterAge">একাউন্ট বয়স</label><select id="filterAge"><option value="all">সব</option><option value="2010-2015">2010-2015</option><option value="2016-2020">2016-2020</option><option value="2021-2023">2021-2023</option></select></div>
+                    <div class="filter-group"><label for="filterPrice">মূল্য (সর্বোচ্চ)</label><input type="range" id="filterPrice" min="100" max="5000" step="100" value="5000"><span id="priceValue">৳5000</span></div>
+                </div><div id="accountList" class="account-list"></div>
+            </section>
+            <section id="orderDetails" class="page">
+                <div class="order-details">
+                    <h2 style="color: var(--success-color);">🎉 অর্ডার সফল হয়েছে! 🎉</h2><p style="text-align:center;">আপনার একাউন্টের তথ্য নিচে দেওয়া হলো।</p>
+                    <div class="order-info"><h3>অর্ডার তথ্য</h3><div class="info-item"><span>অর্ডার আইডি:</span><span id="orderId" class="info-item-value"></span></div><div class="info-item"><span>মূল্য:</span><span id="orderPrice" class="info-item-value"></span></div></div>
+                    <div class="login-info"><h3>লগইন তথ্য</h3><div class="info-item"><span>ইমেইল/ইউজারনেম:</span><div class="info-item-value"><span id="orderEmail"></span><button class="btn btn-copy" onclick="copyToClipboard('orderEmail')">কপি</button></div></div><div class="info-item"><span>পাসওয়ার্ড:</span><div class="info-item-value"><span id="orderPassword"></span><button class="btn btn-copy" onclick="copyToClipboard('orderPassword')">কপি</button></div></div></div>
+                    <div class="action-buttons"><button class="btn btn-primary" onclick="showPage('dashboard')">আমার একাউন্টে যান</button><a id="goToLoginBtn" href="#" target="_blank" class="btn btn-success">লগইন করতে যান</a></div>
+                </div>
+            </section>
+            <section id="deposit" class="page">
+                <h2 class="section-title">ব্যালেন্স টপ-আপ</h2>
+                <div class="content-grid">
+                    <div class="form-card">
+                        <h3>ডিপোজিট করুন</h3><p>নিচের নাম্বারে টাকা পাঠিয়ে ট্রানজেকশন আইডি দিয়ে ফর্মটি সাবমিট করুন।</p>
+                        <div class="payment-numbers"><p id="bkashNumberText"></p><p id="nagadNumberText"></p><p id="rocketNumberText"></p></div>
+                        <form id="depositForm"><div class="form-group"><label for="depositAmount">টাকার পরিমাণ</label><input type="number" id="depositAmount" placeholder="e.g., 500" required></div><div class="form-group"><label for="transactionId">ট্রানজেকশন আইডি</label><input type="text" id="transactionId" required></div><button type="submit" class="btn btn-primary">সাবমিট করুন</button></form>
+                    </div><div class="info-card"><h3>ডিপোজিট হিস্টোরি</h3><div class="table-container"><table id="depositHistoryTable"><thead><tr><th>তারিখ</th><th>পরিমাণ</th><th>TrxID</th><th>স্ট্যাটাস</th></tr></thead><tbody></tbody></table></div></div>
+                </div>
+            </section>
+            <section id="referral" class="page">
+                <h2 class="section-title">রেফারেল প্রোগ্রাম</h2>
+                 <div class="content-grid">
+                     <div class="info-card">
+                         <h3>আপনার রেফারেল লিংক</h3><p>এই লিংকটি আপনার বন্ধুদের সাথে শেয়ার করুন। প্রতি সফল রেফারেলে বোনাস জিতুন!</p>
+                         <div class="form-group"><input type="text" id="referralLink" value="" readonly></div>
+                         <button class="btn btn-primary" onclick="copyToClipboard('referralLink')">লিংক কপি করুন</button>
+                         <div style="margin-top: 20px;"><h3>আপনার পরিসংখ্যান</h3><p><strong>মোট জয়েন করেছে:</strong> <span id="refJoins">0 জন</span></p><p><strong>মোট ইনকাম:</strong> <span id="refIncome">৳0</span></p></div>
+                     </div><div class="info-card"><h3>রেফারেল ইনকাম হিস্টোরি</h3><div class="table-container"><table><thead><tr><th>তারিখ</th><th>ইউজার</th><th>ইনকাম</th></tr></thead><tbody id="referralHistoryBody"></tbody></table></div></div>
+                 </div>
+            </section>
+            <section id="dashboard" class="page">
+                <h2 class="section-title">আমার একাউন্ট ড্যাশবোর্ড</h2>
+                <div class="dashboard-card">
+                    <h3 id="dashboardWelcome">স্বাগতম!</h3>
+                    <div class="info-item"><span>আপনার বর্তমান ব্যালেন্স:</span><span id="dashboardBalance" class="info-item-value" style="font-size: 1.5em; color: var(--primary-color);"></span></div>
+                    <div class="info-item"><span>রেফারেল ইনকাম:</span><span id="dashboardRefIncome" class="info-item-value"></span></div>
+                    <hr style="margin: 20px 0; border-color: var(--border-color);"><h3_>আমার কেনা একাউন্টসমূহ</h3>
+                    <div id="purchasedAccountsList"><p>আপনি এখনো কোনো একাউন্ট কেনেননি।</p></div>
+                    <h3 style="margin-top: 30px;">আমার অর্ডার হিস্টোরি</h3>
+                    <div class="table-container"><table id="orderHistoryTable"><thead><tr><th>অর্ডার আইডি</th><th>একাউন্ট</th><th>মূল্য</th><th>তারিখ</th></tr></thead><tbody></tbody></table></div>
+                </div>
+            </section>
+        </main>
+        <a id="liveChatBtn" href="#" target="_blank" class="live-chat-btn">💬</a>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+        import { getDatabase, ref, set, onValue, get, update, push, serverTimestamp, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyB8AHgdhU6-1pK3Lf_bxtLpZBXkye2epWQ",
+            authDomain: "accbazar-65b81.firebaseapp.com",
+            databaseURL: "https://accbazar-65b81-default-rtdb.firebaseio.com",
+            projectId: "accbazar-65b81",
+            storageBucket: "accbazar-65b81.appspot.com",
+            messagingSenderId: "424809972878",
+            appId: "1:424809972878:web:6f2c76db0cec28a8dfb5df",
+            measurementId: "G-YR9GDTB94J"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+        
+        // Global variables & UI Containers
+        let allAccountsForSale = [], currentUser = null, userProfile = {}, siteSettings = {};
+        const authContainer = document.getElementById('authContainer');
+        const mainApp = document.getElementById('mainApp');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const resetPasswordForm = document.getElementById('resetPasswordForm');
+        
+        // Auth Form Toggling
+        window.showAuthForm = (formId) => {
+            [loginForm, registerForm, resetPasswordForm].forEach(form => form.classList.remove('active'));
+            document.getElementById(formId).classList.add('active');
+        };
+
+        // --- AUTHENTICATION ---
+        onAuthStateChanged(auth, user => {
+            currentUser = user;
+            if (user) {
+                authContainer.style.display = 'none';
+                mainApp.style.display = 'block';
+                loadInitialData(user.uid);
+            } else {
+                showAuthForm('loginForm');
+                authContainer.style.display = 'flex';
+                mainApp.style.display = 'none';
+            }
+        });
+        
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = registerForm.registerName.value;
+            const email = registerForm.registerEmail.value;
+            const password = registerForm.registerPassword.value;
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                const referrerId = new URLSearchParams(window.location.search).get("ref");
+                
+                await set(ref(db, 'users/' + user.uid), {
+                    name, email, balance: 0, referralIncome: 0, createdAt: serverTimestamp(), referrerId: referrerId || null
+                });
+
+                if (referrerId && siteSettings.referralBonus && siteSettings.referralBonus > 0) {
+                    const referrerRef = ref(db, `users/${referrerId}`);
+                    const snapshot = await get(referrerRef);
+                    if (snapshot.exists()) {
+                        const referrerData = snapshot.val();
+                        const bonus = parseFloat(siteSettings.referralBonus);
+                        const updates = {
+                            balance: (referrerData.balance || 0) + bonus,
+                            referralIncome: (referrerData.referralIncome || 0) + bonus
+                        };
+                        await update(referrerRef, updates);
+                        await set(push(ref(db, `users/${referrerId}/referralHistory`)), {
+                            referredUserId: user.uid, referredUserName: name, bonusAmount: bonus, timestamp: serverTimestamp()
+                        });
+                    }
+                }
+                alert('রেজিস্ট্রেশন সফল হয়েছে!');
+            } catch (error) {
+                alert(`রেজিস্ট্রেশন ব্যর্থ: ${error.message}`);
+            }
+        });
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            signInWithEmailAndPassword(auth, loginForm.loginEmail.value, loginForm.loginPassword.value)
+                .catch(error => alert(`লগইন ব্যর্থ: ${error.message}`));
+        });
+
+        resetPasswordForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            sendPasswordResetEmail(auth, resetPasswordForm.resetEmail.value)
+                .then(() => {
+                    alert('পাসওয়ার্ড রিসেট করার লিংক আপনার ইমেইলে পাঠানো হয়েছে।');
+                    showAuthForm('loginForm');
+                })
+                .catch((error) => alert(`ত্রুটি: ${error.message}`));
+        });
+
+        window.logoutUser = () => {
+            if (confirm('আপনি কি লগআউট করতে চান?')) signOut(auth);
+        };
+        
+        // --- DATA HANDLING & UI ---
+        function loadInitialData(uid) {
+            onValue(ref(db, "settings"), (snapshot) => {
+                siteSettings = snapshot.exists() ? snapshot.val() : {};
+                document.getElementById("liveChatBtn").href = siteSettings.supportLink || "#";
+                const { bkash, nagad, rocket } = siteSettings.depositNumbers || {};
+                document.getElementById("bkashNumberText").innerText = bkash ? `বিকাশ: ${bkash}` : "";
+                document.getElementById("nagadNumberText").innerText = nagad ? `নগদ: ${nagad}` : "";
+                document.getElementById("rocketNumberText").innerText = rocket ? `রকেট: ${rocket}` : "";
+            });
+            onValue(ref(db, "users/" + uid), (snapshot) => {
+                if (snapshot.exists()) {
+                    userProfile = { id: snapshot.key, ...snapshot.val() };
+                    updateAllUI();
+                    renderReferralHistory();
+                }
+            });
+            onValue(ref(db, "accounts"), (snapshot) => {
+                const data = snapshot.val();
+                allAccountsForSale = data ? Object.keys(data).map(key => ({ id: key, ...data[key] })) : [];
+                filterAccounts();
+            });
+            const depositsQuery = query(ref(db, 'deposits'), orderByChild('userId'), equalTo(uid));
+            onValue(depositsQuery, s => renderHistory(s, 'depositHistoryTable', formatDepositRow));
+            const ordersQuery = query(ref(db, 'orders'), orderByChild('userId'), equalTo(uid));
+            onValue(ordersQuery, s => renderHistory(s, 'orderHistoryTable', formatOrderRow));
+        }
+        function updateAllUI() {
+            if (!currentUser || !userProfile) return;
+            document.getElementById("userBalanceDisplay").innerText = `ব্যালেন্স: ৳${userProfile.balance || 0}`;
+            document.getElementById("welcomeUser").innerText = `${userProfile.name}, স্বাগতম!`;
+            updateDashboard();
+            document.getElementById("refIncome").innerText = `৳${userProfile.referralIncome || 0}`;
+            document.getElementById("referralLink").value = `${window.location.origin}${window.location.pathname}?ref=${currentUser.uid}`;
+            onValue(ref(db, `users/${currentUser.uid}/referralHistory`), (snapshot) => {
+                 document.getElementById("refJoins").innerText = snapshot.exists() ? `${snapshot.size} জন` : "0 জন";
+            });
+        }
+        function updateDashboard() {
+            if (!userProfile) return;
+            document.getElementById("dashboardWelcome").innerText = `স্বাগতম, ${userProfile.name}!`;
+            document.getElementById("dashboardBalance").innerText = `৳${userProfile.balance || 0}`;
+            document.getElementById("dashboardRefIncome").innerText = `৳${userProfile.referralIncome || 0}`;
+            const purchasedListDiv = document.getElementById("purchasedAccountsList");
+            if (userProfile.purchasedAccounts && Object.keys(userProfile.purchasedAccounts).length > 0) {
+                purchasedListDiv.innerHTML = '<ul style="list-style-type: disc; padding-left: 20px;">';
+                Object.values(userProfile.purchasedAccounts).forEach(acc => {
+                    purchasedListDiv.innerHTML += `<li>${acc.type} একাউন্ট (${acc.email}) - কেনা হয়েছে ৳${acc.price} দিয়ে</li>`;
+                });
+                purchasedListDiv.innerHTML += "</ul>";
+            } else {
+                purchasedListDiv.innerHTML = "<p>আপনি এখনো কোনো একাউন্ট কেনেননি।</p>";
+            }
+        }
+        
+        window.showPage=(pageId,navLink)=>{document.querySelectorAll(".page").forEach(e=>e.classList.remove("active")),document.getElementById(pageId).classList.add("active"),navLink&&(document.querySelectorAll(".nav-link").forEach(e=>e.classList.remove("active")),navLink.classList.add("active")),"dashboard"===pageId&&updateDashboard()};
+        window.copyToClipboard=elementId=>{const el=document.getElementById(elementId);const text=el.value||el.innerText;navigator.clipboard.writeText(text).then(()=>alert("কপি করা হয়েছে!"))};
+        const getAccountIcon=type=>{const icons={Gmail:"7/7e/Gmail_icon_%282020%29.svg",Facebook:"b/b8/2021_Facebook_icon.svg",Instagram:"a/a5/Instagram_icon.png"};return`https://upload.wikimedia.org/wikipedia/commons/${icons[type]||"e/e1/Generic_logo.svg"}`};
+        const renderAccounts=accountsToRender=>{const accountListDiv=document.getElementById("accountList"),featuredAccountsDiv=document.getElementById("featuredAccounts");accountListDiv.innerHTML="",featuredAccountsDiv.innerHTML="";if(0===accountsToRender.length){accountListDiv.innerHTML="<p>এই ফিল্টারে কোনো একাউন্ট পাওয়া যায়নি।</p>"; return;} accountsToRender.forEach(acc=>{const cardHTML=`<div class="account-card"><div class="account-card-header"><img src="${getAccountIcon(acc.type)}" alt="${acc.type} logo"><h3>${acc.type} একাউন্ট</h3></div><ul class="account-details-list"><li><span>ইমেইল:</span> <strong>${acc.email.substring(0,5)}...${acc.email.substring(acc.email.indexOf("@"))}</strong></li><li><span>পাসওয়ার্ড:</span> <strong>*********</strong></li><li><span>বয়স:</span> <strong>${acc.age}</strong></li><li><span>রিকভারি যুক্ত:</span> <strong>${acc.recovery?"হ্যাঁ":"না"}</strong></li></ul><div class="account-price">৳${acc.price}</div><button class="btn btn-primary" onclick="buyNow('${acc.id}')">এখনই কিনুন</button></div>`;accountListDiv.innerHTML+=cardHTML;if(acc.featured)featuredAccountsDiv.innerHTML+=cardHTML})};
+        window.filterAccounts=()=>{const type=document.getElementById("filterType").value,ageRange=document.getElementById("filterAge").value,price=document.getElementById("filterPrice").value;document.getElementById("priceValue").innerText=`৳${price}`;const [minAge, maxAge] = ageRange.split('-').map(Number); const filtered=allAccountsForSale.filter(acc=>("all"===type||acc.type===type)&&acc.price<=price&&("all"===ageRange||(acc.age>=minAge&&acc.age<=maxAge)));renderAccounts(filtered)};
+        window.buyNow=async accountId=>{const accountToBuy=allAccountsForSale.find(a=>a.id===accountId);if(!accountToBuy)return alert("দুঃখিত, একাউন্টটি আর উপলব্ধ নেই।");if(userProfile.balance<accountToBuy.price)return alert("দুঃখিত, আপনার পর্যাপ্ত ব্যালেন্স নেই। অনুগ্রহ করে ডিপোজিট করুন।");if(confirm(`আপনি কি ৳${accountToBuy.price} দিয়ে এই একাউন্টটি কিনতে চান?`)){const newBalance=userProfile.balance-accountToBuy.price,newOrderId=push(ref(db,"orders")).key,updates={};updates[`/users/${currentUser.uid}/balance`]=newBalance;updates[`/users/${currentUser.uid}/purchasedAccounts/${accountId}`]=accountToBuy;updates[`/accounts/${accountId}`]=null;updates[`/orders/${newOrderId}`]={userId:currentUser.uid,userName:userProfile.name,account:accountToBuy,price:accountToBuy.price,createdAt:serverTimestamp()};try{await update(ref(db),updates);renderOrderDetails(accountToBuy,newOrderId);showPage("orderDetails")}catch(e){alert(`অর্ডার ব্যর্থ: ${e.message}`)}}};
+        const renderOrderDetails=(account,orderId)=>{document.getElementById("orderId").innerText=orderId,document.getElementById("orderPrice").innerText=`৳${account.price}`,document.getElementById("orderEmail").innerText=account.email,document.getElementById("orderPassword").innerText=account.password;const loginUrls={Gmail:"https://mail.google.com",Facebook:"https://facebook.com",Instagram:"https://instagram.com"};document.getElementById("goToLoginBtn").href=loginUrls[account.type]||"#"};
+        const renderHistory=(snapshot,tableId,rowFormatter)=>{const tableBody=document.getElementById(tableId).querySelector("tbody");tableBody.innerHTML="";if(!snapshot.exists()){tableBody.innerHTML=`<tr><td colspan="4" style="text-align:center;">কোনো হিস্টোরি নেই।</td></tr>`; return;}let items=[];snapshot.forEach(child=>items.push({id:child.key,...child.val()}));items.reverse().forEach(item=>tableBody.innerHTML+=rowFormatter(item))};const formatDepositRow=item=>`<tr><td>${new Date(item.createdAt).toLocaleDateString("bn-BD")}</td><td>৳${item.amount}</td><td>${item.trxId}</td><td class="status-${item.status}">${item.status}</td></tr>`;const formatOrderRow=item=>`<tr><td>...${item.id.slice(-6)}</td><td>${item.account.type}</td><td>৳${item.price}</td><td>${new Date(item.createdAt).toLocaleDateString("bn-BD")}</td></tr>`;
+        const renderReferralHistory=()=>{const tableBody=document.getElementById("referralHistoryBody");tableBody.innerHTML="";const history=userProfile.referralHistory;if(!history){tableBody.innerHTML='<tr><td colspan="3" style="text-align:center;">কোনো হিস্টোরি নেই।</td></tr>'; return;}Object.values(history).reverse().forEach(item=>{tableBody.innerHTML+=`<tr><td>${new Date(item.timestamp).toLocaleDateString("bn-BD")}</td><td>${item.referredUserName}</td><td>৳${item.bonusAmount}</td></tr>`})};
+        document.getElementById("depositForm").addEventListener("submit",function(e){e.preventDefault();const amount=parseFloat(this.depositAmount.value),trxId=this.transactionId.value;if(isNaN(amount) || amount <= 0) return alert("টাকার পরিমাণ সঠিক নয়।"); set(push(ref(db,"deposits")),{userId:currentUser.uid,userName:userProfile.name,amount:amount,trxId:trxId,status:"Pending",createdAt:serverTimestamp()}).then(()=>{alert("ডিপোজিট রিকুয়েস্ট সফলভাবে জমা হয়েছে। অ্যাডমিন পর্যালোচনার পর আপনার ব্যালেন্স আপডেট করা হবে।"),this.reset()}).catch(e=>alert(`ত্রুটি: ${e.message}`))});
+        
+        window.onload=()=>{
+            showAuthForm('loginForm');
+            document.getElementById("filterType").addEventListener("change",filterAccounts);
+            document.getElementById("filterAge").addEventListener("change",filterAccounts);
+            document.getElementById("filterPrice").addEventListener("input",filterAccounts);
+        };
+    </script>
+</body>
+</html>
